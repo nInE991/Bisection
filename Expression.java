@@ -1434,22 +1434,21 @@ public class Expression {
 			@Override
 			public BigDecimal eval(List<BigDecimal> parameters) {
 				int bool = parameters.get(0).compareTo(new BigDecimal(0));
-				if(bool<=0){
+				if (bool <= 0) {
 					throw new ArithmeticException("The ln must be greater than zero");
+				} else {
+					assertNotNull(parameters.get(0));
+					double d = Math.log(parameters.get(0).doubleValue());
+					return new BigDecimal(d, mc);
 				}
-				else
-				assertNotNull(parameters.get(0));
-				double d = Math.log(parameters.get(0).doubleValue());
-				return new BigDecimal(d, mc);
 			}
-
 		});
 		addFunction(new Function("LOG", 1) {
 			@Override
 			public BigDecimal eval(List<BigDecimal> parameters) {
 				int bool = parameters.get(0).compareTo(new BigDecimal(0));
 				if (bool <= 0) {
-					throw new ArithmeticException("The ln must be greater than zero");
+					throw new ArithmeticException("The log must be greater than zero");
 				} else {
 					assertNotNull(parameters.get(0));
 					double d = Math.log10(parameters.get(0).doubleValue());
