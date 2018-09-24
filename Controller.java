@@ -86,14 +86,7 @@ public class Controller {
                     bisection.functionRight = new Expression(bisection.function).with("x", bisection.right).eval();
 
                     if (bisection.functionLeft.signum() == bisection.functionRight.signum()) {
-                        Platform.runLater(() -> {
-                            Controller.err = true;
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Error Dialog");
-                            alert.setHeaderText("Error!!! ");
-                            alert.setContentText("Sign of F(a) and F(b) must be opposite! Check end-points of the interval [a,b]!");
-                            alert.showAndWait();
-                        });
+                        throw new Exception("Sign of F(a) and F(b) must be opposite! Check end-points of the interval [a,b]!");
                     } else {
                         bisection.latch = new CountDownLatch(1);
                         while (bisection.left.subtract(bisection.right).abs().compareTo(bisection.tol) > 0 && bisection.cond == 0) {
@@ -101,7 +94,6 @@ public class Controller {
                                 bisection.latch = new CountDownLatch(1);
                             }
                             bisection.Method();
-
                             if (bisection.iter >= bisection.iteration) {
                                 bisection.cond = 1;
                                 Platform.runLater(() -> {

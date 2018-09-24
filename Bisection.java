@@ -45,28 +45,6 @@ public class Bisection implements SeachTime {
             right = aver;
         }
         iter++;
-//                if (System.currentTimeMillis() >= timeLimit) {
-//                    cond = 1;
-//                    Platform.runLater(() -> {
-//                                Alert alert = new Alert(Alert.AlertType.ERROR);
-//                                alert.setTitle("Error Dialog");
-//                                alert.setHeaderText("Error!!! ");
-//                                alert.setContentText("The search time has expired !");
-//                                alert.showAndWait();
-//                            }
-//
-//                    );
-//
-//                    result.setTime(String.valueOf(time));
-//                }
-//                try {
-//                    Thread.sleep(15);
-//                } catch (Exception ex) {
-//
-//                }
-//            }
-//
-//        }
     }
 }
 
