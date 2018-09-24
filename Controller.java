@@ -109,12 +109,12 @@ public class Controller {
                                                 bisection.cond = 0;
                                                 iterlimForm.setText(String.valueOf(bisection.iteration));
                                                 progressIndicatorForm.setVisible(true);
-                                                bisection.StopPause();
                                             } else {
                                                 bisection.cond = 1;
                                                 resultLabelForm.setText("Solution not found, number of iterations exceeded!");
                                             }
                                             bisection.latch.countDown();
+                                            bisection.StopPause();
                                         }
 
                                 );
@@ -135,12 +135,13 @@ public class Controller {
                                                 bisection.cond = 0;
                                                 timelimForm.setText(String.valueOf(bisection.timeLimit));
                                                 progressIndicatorForm.setVisible(true);
-                                                bisection.StopPause();
                                             } else {
                                                 bisection.cond = 1;
                                                 resultLabelForm.setText("Solution not found, time exceeded !");
+
                                             }
                                             bisection.latch.countDown();
+                                            bisection.StopPause();
                                         }
 
                                 );
