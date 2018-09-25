@@ -14,6 +14,7 @@ import java.util.concurrent.CountDownLatch;
 
 public class Controller {
     static boolean err = false;
+    List list;
     @FXML
     private TextField functionForm;
     @FXML
@@ -83,16 +84,15 @@ public class Controller {
                     bisection.itermax = Integer.valueOf(iterlimForm.getText());
                     bisection.timeLimit = Long.parseLong(timelimForm.getText());
                     bisection.timeMax = Long.parseLong(timelimForm.getText());
-                    try{
-                        List list = new Expression(bisection.function).getUsedVariables();
-                        bisection.perem=String.valueOf(list.get(0));
+                    list = new Expression(bisection.function).getUsedVariables();
+                    if(list.get(0)!=null && list.get(0).equals(list.get(1))){
+                        bisection.perem = String.valueOf(list.get(0));
                     }
-                    catch (Exception ex){
-
+                    else{
+                        throw new Exception("Error entering operator!");
                     }
                     bisection.functionLeft = new Expression(bisection.function).with(bisection.perem, bisection.left).eval();
                     bisection.functionRight = new Expression(bisection.function).with(bisection.perem, bisection.right).eval();
-
                     if (bisection.functionLeft.signum() == bisection.functionRight.signum()) {
                         throw new Exception("Sign of F(a) and F(b) must be opposite! Check end-points of the interval [a,b]!");
                     } else {
