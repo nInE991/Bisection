@@ -15,6 +15,7 @@ public class Bisection implements SeachTime {
     BigDecimal functionLeft;
     BigDecimal functionRight;
     BigDecimal functionAver;
+    String perem;
     int cond = 0;
     long iter = 0;
     int iteration;
@@ -37,8 +38,8 @@ public class Bisection implements SeachTime {
 
     public void Method() {
         aver = new Expression("(a+b)/2").with("a", left).with("b", right).eval();
-        functionLeft = new Expression(function).with("x", left).eval();
-        functionAver = new Expression(function).with("x", aver).eval();
+        functionLeft = new Expression(function).with(perem, left).eval();
+        functionAver = new Expression(function).with(perem, aver).eval();
         if (functionLeft.signum() == functionAver.signum()) {
             left = aver;
         } else {

@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CountDownLatch;
 
@@ -82,8 +83,15 @@ public class Controller {
                     bisection.itermax = Integer.valueOf(iterlimForm.getText());
                     bisection.timeLimit = Long.parseLong(timelimForm.getText());
                     bisection.timeMax = Long.parseLong(timelimForm.getText());
-                    bisection.functionLeft = new Expression(bisection.function).with("x", bisection.left).eval();
-                    bisection.functionRight = new Expression(bisection.function).with("x", bisection.right).eval();
+                    try{
+                        List list = new Expression(bisection.function).getUsedVariables();
+                        bisection.perem=String.valueOf(list.get(0));
+                    }
+                    catch (Exception ex){
+
+                    }
+                    bisection.functionLeft = new Expression(bisection.function).with(bisection.perem, bisection.left).eval();
+                    bisection.functionRight = new Expression(bisection.function).with(bisection.perem, bisection.right).eval();
 
                     if (bisection.functionLeft.signum() == bisection.functionRight.signum()) {
                         throw new Exception("Sign of F(a) and F(b) must be opposite! Check end-points of the interval [a,b]!");
