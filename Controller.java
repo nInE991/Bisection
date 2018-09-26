@@ -77,9 +77,9 @@ public class Controller {
                     progressIndicatorForm.setVisible(true);
 
                     bisection.function = functionForm.getText().toLowerCase();
-                    bisection.a = new BigDecimal(Double.valueOf(leftEndForm.getText()));
-                    bisection.b = new BigDecimal(Double.valueOf(rightEndForm.getText()));
-                    bisection.tol = new BigDecimal(Double.valueOf(tolForm.getText()));
+                    bisection.a = new BigDecimal(Double.valueOf(leftEndForm.getText().replace(',','.')));
+                    bisection.b = new BigDecimal(Double.valueOf(rightEndForm.getText().replace(',','.')));
+                    bisection.tol = new BigDecimal(Double.valueOf(tolForm.getText().replace(',','.')));
                     bisection.iteration = Integer.valueOf(iterlimForm.getText());
                     bisection.itermax = Integer.valueOf(iterlimForm.getText());
                     bisection.timeLimit = Long.parseLong(timelimForm.getText());
@@ -103,7 +103,6 @@ public class Controller {
                             }
                             bisection.Method();
                             if (bisection.iter >= bisection.iteration) {
-                                bisection.cond = 1;
                                 Platform.runLater(() -> {
                                             bisection.StartPause();
                                             progressIndicatorForm.setVisible(false);
@@ -114,7 +113,6 @@ public class Controller {
                                             Optional<ButtonType> result = alert.showAndWait();
                                             if (result.get() == ButtonType.OK) {
                                                 bisection.iteration = bisection.iteration + bisection.itermax;
-                                                bisection.cond = 0;
                                                 iterlimForm.setText(String.valueOf(bisection.iteration));
                                                 progressIndicatorForm.setVisible(true);
                                             } else {
@@ -128,7 +126,6 @@ public class Controller {
                                 bisection.latch.await();
                             }
                             if ((System.currentTimeMillis() - bisection.startTime) >= bisection.timeLimit) {
-                                bisection.cond = 1;
                                 Platform.runLater(() -> {
                                             bisection.StartPause();
                                             progressIndicatorForm.setVisible(false);
@@ -139,7 +136,6 @@ public class Controller {
                                             Optional<ButtonType> result = alert.showAndWait();
                                             if (result.get() == ButtonType.OK) {
                                                 bisection.timeLimit = bisection.timeLimit + bisection.timeMax;
-                                                bisection.cond = 0;
                                                 timelimForm.setText(String.valueOf(bisection.timeLimit));
                                                 progressIndicatorForm.setVisible(true);
                                             } else {
