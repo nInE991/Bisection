@@ -152,11 +152,12 @@ public class Controller {
                             Thread.sleep(15);
                         }
                     }
-                    bisection.resultTime = (System.currentTimeMillis() - bisection.startTime);
+
                     Platform.runLater(() -> {
                         if (bisection.cond == 0) {
                             resultLabelForm.setText("Solution found!");
                         }
+                        bisection.resultTime = System.currentTimeMillis() - bisection.startTime;
                         resultXForm.setText(String.valueOf(bisection.aver));
                         resultFunctionXForm.setText(String.valueOf(bisection.functionAver.setScale(34, RoundingMode.UP)));
                         resultAbsForm.setText(String.valueOf(bisection.b.subtract(bisection.a).abs().setScale(34, RoundingMode.UP)));

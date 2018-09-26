@@ -11,11 +11,6 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
-//         final BigDecimal e = new BigDecimal(
-//                "-1");
-//
-//        BigDecimal remainderOf2 = e.remainder(BigDecimal.ONE);
-//        System.out.println(remainderOf2);
 
     }
 
