@@ -124,7 +124,6 @@ public class Controller {
                                             bisection.latch.countDown();
                                             bisection.StopPause();
                                         }
-
                                 );
                                 bisection.latch.await();
                             }
@@ -146,7 +145,6 @@ public class Controller {
                                             } else {
                                                 bisection.cond = 1;
                                                 resultLabelForm.setText("Solution not found, time exceeded !");
-
                                             }
                                             bisection.latch.countDown();
                                             bisection.StopPause();
@@ -163,8 +161,8 @@ public class Controller {
                         if (bisection.cond == 0) {
                             resultLabelForm.setText("Solution found!");
                         }
-                        resultXForm.setText(String.valueOf(bisection.a));
-                        resultFunctionXForm.setText(String.valueOf(bisection.functionA.setScale(34, RoundingMode.UP)));
+                        resultXForm.setText(String.valueOf(bisection.aver));
+                        resultFunctionXForm.setText(String.valueOf(bisection.functionAver.setScale(34, RoundingMode.UP)));
                         resultAbsForm.setText(String.valueOf(bisection.b.subtract(bisection.a).abs().setScale(34, RoundingMode.UP)));
                         resultIterForm.setText(String.valueOf(bisection.iter));
                         resultTimeForm.setText(String.valueOf(bisection.resultTime));
