@@ -77,27 +77,27 @@ public class Controller {
                     progressIndicatorForm.setVisible(true);
 
                     bisection.function = functionForm.getText().toLowerCase();
-                    bisection.left = new BigDecimal(Double.valueOf(leftEndForm.getText()));
-                    bisection.right = new BigDecimal(Double.valueOf(rightEndForm.getText()));
+                    bisection.a = new BigDecimal(Double.valueOf(leftEndForm.getText()));
+                    bisection.b = new BigDecimal(Double.valueOf(rightEndForm.getText()));
                     bisection.tol = new BigDecimal(Double.valueOf(tolForm.getText()));
                     bisection.iteration = Integer.valueOf(iterlimForm.getText());
                     bisection.itermax = Integer.valueOf(iterlimForm.getText());
                     bisection.timeLimit = Long.parseLong(timelimForm.getText());
                     bisection.timeMax = Long.parseLong(timelimForm.getText());
                     list = new Expression(bisection.function).getUsedVariables();
-                    if(list.get(0)!=null && list.get(0).equals(list.get(1))){
+                    if(list.get(0)!=null){
                         bisection.perem = String.valueOf(list.get(0));
                     }
                     else{
                         throw new Exception("Error entering operator!");
                     }
-                    bisection.functionLeft = new Expression(bisection.function).with(bisection.perem, bisection.left).eval();
-                    bisection.functionRight = new Expression(bisection.function).with(bisection.perem, bisection.right).eval();
-                    if (bisection.functionLeft.signum() == bisection.functionRight.signum()) {
+                    bisection.functionA = new Expression(bisection.function).with(bisection.perem, bisection.a).eval();
+                    bisection.functionB = new Expression(bisection.function).with(bisection.perem, bisection.b).eval();
+                    if (bisection.functionA.signum() == bisection.functionB.signum()) {
                         throw new Exception("Sign of F(a) and F(b) must be opposite! Check end-points of the interval [a,b]!");
                     } else {
                         bisection.latch = new CountDownLatch(1);
-                        while (bisection.left.subtract(bisection.right).abs().compareTo(bisection.tol) > 0 && bisection.cond == 0) {
+                        while (bisection.a.subtract(bisection.b).abs().compareTo(bisection.tol) > 0 && bisection.cond == 0) {
                             if (bisection.latch.getCount() != 1) {
                                 bisection.latch = new CountDownLatch(1);
                             }
@@ -163,14 +163,15 @@ public class Controller {
                         if (bisection.cond == 0) {
                             resultLabelForm.setText("Solution found!");
                         }
-                        resultXForm.setText(String.valueOf(bisection.left));
-                        resultFunctionXForm.setText(String.valueOf(bisection.functionLeft.setScale(34, RoundingMode.UP)));
-                        resultAbsForm.setText(String.valueOf(bisection.right.subtract(bisection.left).abs().setScale(34, RoundingMode.UP)));
+                        resultXForm.setText(String.valueOf(bisection.a));
+                        resultFunctionXForm.setText(String.valueOf(bisection.functionA.setScale(34, RoundingMode.UP)));
+                        resultAbsForm.setText(String.valueOf(bisection.b.subtract(bisection.a).abs().setScale(34, RoundingMode.UP)));
                         resultIterForm.setText(String.valueOf(bisection.iter));
                         resultTimeForm.setText(String.valueOf(bisection.resultTime));
                         progressIndicatorForm.setVisible(false);
                     });
                 } catch (Exception ex) {
+                    try{
                     Platform.runLater(() -> {
                                 resultXForm.setText("");
                                 resultFunctionXForm.setText("");
@@ -184,8 +185,11 @@ public class Controller {
                                 alert.setContentText(String.valueOf(ex.getMessage()));
                                 alert.showAndWait();
                                 resultLabelForm.setText(String.valueOf(ex.getMessage()));
-                            }
-                    );
+                            });
+                    }
+                    catch (Exception err){
+
+                    }
                 }
                 return null;
             }

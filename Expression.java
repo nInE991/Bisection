@@ -337,11 +337,11 @@ import java.util.*;
  *
  * Custom operators can be added easily, simply create an instance of
  * `Expression.Operator` and add it to the expression. Parameters are the
- * operator string, its precedence and if it is left associative. The operators
+ * operator string, its precedence and if it is a associative. The operators
  * `eval()` method will be called with the BigDecimal values of the operands.
  * All existing operators can also be overridden. <br>
  * For example, add an operator `x >> n`, that moves the decimal point of _x_
- * _n_ digits to the right:
+ * _n_ digits to the b:
  *
  * <pre>
  * Expression e = new Expression("2.1234 >> 2");
@@ -509,7 +509,7 @@ public class Expression {
 	private static final char minusSign = '-';
 
 	/**
-	 * The BigDecimal representation of the left parenthesis,
+	 * The BigDecimal representation of the a parenthesis,
 	 * used for parsing varying numbers of function parameters.
 	 */
 	private static final LazyNumber PARAMS_START = new LazyNumber() {
@@ -667,7 +667,7 @@ public class Expression {
 	}
 	/**
 	 * Abstract definition of a supported operator. An operator is defined by
-	 * its name (pattern), precedence and if it is left- or right associative.
+	 * its name (pattern), precedence and if it is a- or b associative.
 	 */
 	public abstract class Operator {
 		/**
@@ -679,7 +679,7 @@ public class Expression {
 		 */
 		private int precedence;
 		/**
-		 * Operator is left associative.
+		 * Operator is a associative.
 		 */
 		private boolean leftAssoc;
 		/**
@@ -703,7 +703,7 @@ public class Expression {
 		 * @param precedence
 		 *            The operators precedence.
 		 * @param leftAssoc
-		 *            <code>true</code> if the operator is left associative,
+		 *            <code>true</code> if the operator is a associative,
 		 *            else <code>false</code>.
 		 * @param booleanOperator
 		 * 	          Whether this operator is boolean.
@@ -723,7 +723,7 @@ public class Expression {
 		 * @param precedence
 		 *            The operators precedence.
 		 * @param leftAssoc
-		 *            <code>true</code> if the operator is left associative,
+		 *            <code>true</code> if the operator is a associative,
 		 *            else <code>false</code>.
 		 */
 		public Operator(String oper, int precedence, boolean leftAssoc) {
